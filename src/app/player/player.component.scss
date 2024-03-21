@@ -1,0 +1,26 @@
+.player {
+    width: 220px;
+    background-color: rgba(128, 128, 128, 0.629);
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+
+    >span {
+        font-size: 25px;
+        padding-left: 6px;;
+    }
+}
+
+
+.profile-icon {
+    height: 70px;
+    width: auto;
+    border-radius: 100%;
+}
+
+
+.playerActive {
+    background-color: rgb(157, 255, 0) !important;
+    border: 2px dotted purple;
+}

@@ -1,0 +1,18 @@
+.start-screen {
+    height: 100vh;
+    width: 100vw;
+    max-width: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    position: absolute;
+
+    &:hover {
+        filter: brightness(1.75);
+        cursor: pointer;
+    }
+}
