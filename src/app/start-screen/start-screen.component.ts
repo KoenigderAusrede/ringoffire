@@ -1,19 +1,30 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-start-screen',
   standalone: true,
-  imports: [],
   templateUrl: './start-screen.component.html',
-  styleUrl: './start-screen.component.scss'
+  styleUrls: ['./start-screen.component.scss']
 })
 export class StartScreenComponent {
+  constructor(
+    private router: Router, 
+    private firestore: Firestore
+  ) {}
 
-    constructor(private router: Router) { }
-
-    newGame() {
-      // Start new Game
-      this.router.navigateByUrl('/game')
-    }
+  async newGame() {
+    const gameRef = await addDoc(collection(this.firestore, 'games'), {
+      players: [],
+      stack: [], // Initialize with whatever initial values you need
+      playedCards: [],
+      currentPlayer: 0,
+      name: "New Game",
+      status: "pending",
+      createdAt: new Date()
+    });
+    this.router.navigate(['/game', gameRef.id]); // Navigate to the new game
+  }
 }
+

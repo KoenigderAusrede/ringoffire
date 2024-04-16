@@ -3,6 +3,9 @@ export class Game {
     public stack: string[] = [];
     public playedCards: string[] = [];
     public currentPlayer: number = 0;
+    public name: string;
+    public status: string;
+    public createdAt: Date;
 
     constructor() {
         for(let i = 1; i < 14; i++ ) {
@@ -12,6 +15,10 @@ export class Game {
             this.stack.push('clubs_' + i)
         }
         this.shuffle();
+
+        this.name = "New Game"; // Default name, or could be parameterized
+        this.status = "pending"; // Default status
+        this.createdAt = new Date(); // Set current date as creation date
     }
 
     shuffle() {
