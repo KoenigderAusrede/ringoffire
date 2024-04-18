@@ -3,6 +3,7 @@ export class Game {
     public stack: string[] = [];
     public playedCards: string[] = [];
     public currentPlayer: number = 0;
+    public currentCard: string = '';
     public name: string;
     public status: string;
     public createdAt: Date;
@@ -16,9 +17,9 @@ export class Game {
         }
         this.shuffle();
 
-        this.name = "New Game"; // Default name, or could be parameterized
-        this.status = "pending"; // Default status
-        this.createdAt = new Date(); // Set current date as creation date
+        this.name = "New Game"; 
+        this.status = "pending"; 
+        this.createdAt = new Date();
     }
 
     shuffle() {

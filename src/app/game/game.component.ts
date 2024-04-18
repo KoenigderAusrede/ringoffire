@@ -24,7 +24,7 @@ export class GameComponent implements OnInit {
   firestore: Firestore = inject(Firestore);
   pickCardAnimation = false;
   currentCard: string = '';
-  game: any;
+  game: any = { players: [], stack: [], playedCards: [], currentPlayer: 0, name: '', status: '', createdAt: new Date() };  // Default empty structure
   player: any;
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, private gameService: GameService) { }
@@ -33,28 +33,18 @@ export class GameComponent implements OnInit {
     const gameId = this.route.snapshot.paramMap.get('gameId');
     if (gameId) {
       this.gameService.getGame(gameId).subscribe(gameData => {
-        this.game = gameData;
+        console.log("Game data loaded:", gameData);
+        if (gameData && gameData.stack) {
+          this.game = gameData;
+        } else {
+          // If the stack is not present, we may want to initialize the game locally or handle the error
+          console.error('Game data fetched does not have a stack, initializing a new game.');
+          this.game = new Game();
+        }
+      }, error => {
+        console.error("Failed to load game data:", error);
       });
     }
-  }
-
-  async newGame() {
-    this.game = new Game(); // Initialize a new Game object
-
-    // Create a simple object from the game instance to store in Firestore
-    const gameData = {
-      players: this.game.players,
-      stack: this.game.stack,
-      playedCards: this.game.playedCards,
-      currentPlayer: this.game.currentPlayer,
-      name: this.game.name,
-      status: this.game.status,
-      createdAt: this.game.createdAt
-    };
-
-        // Add a new document with a generated id.
-        const docRef = await addDoc(collection(this.firestore, "games"), gameData);
-        console.log("Document written with ID: ", docRef.id);
   }
 
   takeCard() {
